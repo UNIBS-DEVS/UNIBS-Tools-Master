@@ -27,7 +27,6 @@ class MailService
                 throw new \Exception('Mail configuration not found.');
             }
 
-
             if ($config->email_auth_type === 'smtp') {
 
                 Config::set('mail.default', 'smtp');

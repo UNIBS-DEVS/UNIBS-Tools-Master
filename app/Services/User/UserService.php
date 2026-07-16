@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
@@ -43,43 +44,43 @@ class UserService
     {
         $passwordChanged = false;
         $emailChanged = false;
+        $plainPassword = null;
 
-        if ($user->email !== $data['email']) {
-            $emailChanged = true;
-        }
+        $emailChanged = $user->email !== $data['email'];
 
         $updateData = [
             'name' => $data['name'],
             'email' => $data['email'],
             'personal_mobile' => $data['personal_mobile'],
             'offical_mobile' => $data['offical_mobile'],
-            'roles' => array_map(
-                'strtolower',
-                $data['roles']
-            ),
+            'roles' => array_map('strtolower', $data['roles']),
             'status' => $data['status'],
             'manager_id' => $data['manager_id'],
         ];
 
-        $plainPassword = null;
-
         if (!empty($data['password'])) {
-
             $passwordChanged = true;
-
             $plainPassword = $data['password'];
-
-            $updateData['password'] = Hash::make(
-                $data['password']
-            );
+            $updateData['password'] = Hash::make($plainPassword);
         }
 
         $user->update($updateData);
 
+        $logoutCurrentUser = false;
+
+        if (
+            $passwordChanged &&
+            Auth::check() &&
+            Auth::id() === $user->id
+        ) {
+            $logoutCurrentUser = true;
+        }
+
         return [
             'user' => $user->fresh(),
-            'send_mail' => ($emailChanged || $passwordChanged),
+            'send_mail' => $emailChanged || $passwordChanged,
             'plain_password' => $plainPassword,
+            'logout' => $logoutCurrentUser,
         ];
     }
 }

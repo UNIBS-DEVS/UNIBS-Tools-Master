@@ -23,7 +23,7 @@
             <div class="card-header bg-white border-bottom">
                 <h5 class="mb-0 fw-semibold">
                     <i class="fa fa-cogs me-2 text-primary"></i>
-                    System Settings
+                    Tool Settings
                 </h5>
             </div>
 

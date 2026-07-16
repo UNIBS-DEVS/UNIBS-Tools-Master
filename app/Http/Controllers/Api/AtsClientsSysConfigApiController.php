@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\AtsClientMaster;
-use Illuminate\Http\Request;
 
 class AtsClientsSysConfigApiController extends Controller
 {
-    public function getAtsSysConfig($client_code)
+    public function getAtsClientsSysConfig(string $client_code)
     {
         $client = AtsClientMaster::where('client_code', $client_code)
             ->where('status', 'active')

@@ -2,21 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ToolsMaster extends Model
+class UnioneClientsSysConfig extends Model
 {
-    use HasFactory;
-
-    protected $table = 'tools_master';
+    protected $table = 'unione_clients_sys_config';
 
     protected $fillable = [
+        'client_id',
+
         'support_user',
         'support_password',
 
         'hr_email',
         'accounts_email',
+
+        'attendance_notification_email',
+        'timesheet_notification_email',
+        'call_review_notification_email',
+
+        'db_host',
+        'db_mysql_port',
+        'db_name',
+        'db_username',
+        'db_password',
 
         'smtp_host',
         'smtp_port',
@@ -29,6 +38,9 @@ class ToolsMaster extends Model
         'graph_redirect_url',
         'graph_client_expiry_date',
 
+        'resume_parse_email',
+        'resume_parsing_time',
+
         'login_auth_type',
         'email_auth_type',
     ];
@@ -38,4 +50,12 @@ class ToolsMaster extends Model
         'email_auth_type' => 'string',
         'resume_parsing_time' => 'array', // ✅ important
     ];
+
+    /**
+     * Relationship with Client (if you have clients table)
+     */
+    public function unioneClientMaster()
+    {
+        return $this->belongsTo(UnioneClientsMaster::class, 'client_id');
+    }
 }

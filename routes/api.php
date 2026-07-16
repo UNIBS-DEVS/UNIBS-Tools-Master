@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AtsClientsSysConfigApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CallReviewSettingApiController;
+use App\Http\Controllers\Api\getToolsAccessTokenApi;
 use App\Http\Controllers\Api\LmsClientsSysConfigApiController;
 use App\Http\Controllers\Api\ReviewApiController;
 use App\Http\Controllers\Api\ToolsMasterApiController;
@@ -66,6 +67,12 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
 
     Route::get('/holidays', [HolidayController::class, 'index']);
+
+
+    // App APIs
+    Route::get('/atsClientsSysConfigAPI/{client_code}', [AtsClientsSysConfigApiController::class, 'getAtsClientsSysConfig']);
+
+    Route::get('/lmsClientsSysConfigAPI/{client_code}', [LmsClientsSysConfigApiController::class, 'getLmsClientsSysConfig']);
 });
 
 
@@ -73,6 +80,4 @@ Route::get('/toolsMasterSettings', [ToolsMasterApiController::class, 'index']);
 
 Route::get('/callReviewSettings', [CallReviewSettingApiController::class, 'index']);
 
-Route::get('/atsClientsSysConfigAPI/{customer_code}', [AtsClientsSysConfigApiController::class, 'getAtsSysConfig']);
-
-Route::get('/lmsClientsSysConfigAPI/{customer_code}', [LmsClientsSysConfigApiController::class, 'getLmsSysConfig']);
+Route::post('/getToolsAccessTokenApi', [getToolsAccessTokenApi::class, 'getToolsAccessTokenApi']);

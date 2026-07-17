@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\GetToolsAccessTokenApiController;
 use App\Http\Controllers\Api\LmsClientsSysConfigApiController;
 use App\Http\Controllers\Api\ReviewApiController;
 use App\Http\Controllers\Api\ToolsMasterApiController;
+use App\Http\Controllers\Api\UnioneClientsSysConfigApiController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AttendanceAPIs\AttendanceController;
 use App\Http\Controllers\AttendanceAPIs\AttendancePunchAuditController;
@@ -74,6 +75,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/atsClientsSysConfigApi/{client_code}', [AtsClientsSysConfigApiController::class, 'getAtsClientsSysConfigApi']);
 
     Route::get('/lmsClientsSysConfigApi/{client_code}', [LmsClientsSysConfigApiController::class, 'getLmsClientsSysConfigApi']);
+
+    Route::get('/unioneClientsSysConfigApi/{client_code}', [UnioneClientsSysConfigApiController::class, 'getUnioneClientsSysConfigApi']);
 
     Route::get('/getAppTenantsApi/{app_name}', [GetAppTenantApiController::class, 'getAppTenantsApi']);
 });

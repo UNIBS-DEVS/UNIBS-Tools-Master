@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tools_master', function (Blueprint $table) {
+        Schema::create('unione_clients_sys_config', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('client_id')
+                ->unique()
+                ->constrained('unione_clients_master')
+                ->cascadeOnDelete();
 
             // Support
             $table->string('support_user')->nullable();
@@ -21,12 +26,15 @@ return new class extends Migration
             // Emails
             $table->string('hr_email')->nullable();
             $table->string('accounts_email')->nullable();
+            $table->string('attendance_notification_email')->nullable();
+            $table->string('timesheet_notification_email')->nullable();
+            $table->string('call_review_notification_email')->nullable();
 
             // Database
-            $table->string('db_host')->nullable();
+            $table->string('db_host');
             $table->unsignedSmallInteger('db_mysql_port')->default(3306);
-            $table->string('db_name')->nullable();
-            $table->string('db_username')->nullable();
+            $table->string('db_name');
+            $table->string('db_username');
             $table->string('db_password')->nullable();
 
             // SMTP
@@ -46,6 +54,9 @@ return new class extends Migration
             $table->enum('login_auth_type', ['basic', 'oauth'])->default('basic');
             $table->enum('email_auth_type', ['smtp', 'graph_id'])->default('smtp');
 
+            // Multiple roles (JSON)
+            $table->json('modules')->nullable();
+
             $table->timestamps();
         });
     }
@@ -55,6 +66,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tools_master');
+        Schema::dropIfExists('unione_clients_sys_config');
     }
 };

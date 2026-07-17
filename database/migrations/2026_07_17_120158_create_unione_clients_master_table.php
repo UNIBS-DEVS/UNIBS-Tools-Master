@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ats_clients_master', function (Blueprint $table) {
+        Schema::create('unione_clients_master', function (Blueprint $table) {
             $table->id();
             $table->string('client_code', 50)->unique();
             $table->string('client_name', 150);
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ats_clients_master');
+        Schema::dropIfExists('unione_clients_master');
     }
 };

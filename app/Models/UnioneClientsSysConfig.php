@@ -38,17 +38,18 @@ class UnioneClientsSysConfig extends Model
         'graph_redirect_url',
         'graph_client_expiry_date',
 
-        'resume_parse_email',
-        'resume_parsing_time',
-
         'login_auth_type',
         'email_auth_type',
+
+        'modules'
     ];
 
     protected $casts = [
         'login_auth_type' => 'string',
         'email_auth_type' => 'string',
         'resume_parsing_time' => 'array', // ✅ important
+
+        'modules' => 'array',
     ];
 
     /**

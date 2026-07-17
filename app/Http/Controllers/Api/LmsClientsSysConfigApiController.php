@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\LmsClientMaster;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; 
+use App\Models\LmsClientsMaster; 
 
 class LmsClientsSysConfigApiController extends Controller
 {
-    public function getLmsSysConfig($client_code)
+    public function getLmsClientsSysConfigApi($client_code)
     {
-        $client = LmsClientMaster::where('client_code', $client_code)
+        $client = LmsClientsMaster::where('client_code', $client_code)
             ->where('status', 'active')
             ->with('lmsClientsSysConfig')
             ->first();

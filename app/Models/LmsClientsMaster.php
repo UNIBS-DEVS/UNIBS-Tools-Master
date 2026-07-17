@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\AtsClientsSysConfig;
+use App\Models\LmsClientsSysConfig;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AtsClientMaster extends Model
+class LmsClientsMaster extends Model
 {
     use HasFactory;
 
-    protected $table = 'ats_clients_master';
+    protected $table = 'lms_clients_master';
 
     protected $fillable = [
         'client_code',
@@ -49,8 +49,8 @@ class AtsClientMaster extends Model
     /**
      * Get the system configuration for the client
      */
-    public function atsClientsSysConfig()
+    public function lmsClientsSysConfig()
     {
-        return $this->hasOne(AtsClientsSysConfig::class, 'client_id');
+        return $this->hasOne(LmsClientsSysConfig::class, 'client_id');
     }
 }

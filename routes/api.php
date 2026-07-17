@@ -3,7 +3,8 @@
 use App\Http\Controllers\Api\AtsClientsSysConfigApiController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CallReviewSettingApiController;
-use App\Http\Controllers\Api\getToolsAccessTokenApi;
+use App\Http\Controllers\Api\GetAppTenantApiController;
+use App\Http\Controllers\Api\GetToolsAccessTokenApiController;
 use App\Http\Controllers\Api\LmsClientsSysConfigApiController;
 use App\Http\Controllers\Api\ReviewApiController;
 use App\Http\Controllers\Api\ToolsMasterApiController;
@@ -70,9 +71,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     // App APIs
-    Route::get('/atsClientsSysConfigAPI/{client_code}', [AtsClientsSysConfigApiController::class, 'getAtsClientsSysConfig']);
+    Route::get('/atsClientsSysConfigApi/{client_code}', [AtsClientsSysConfigApiController::class, 'getAtsClientsSysConfigApi']);
 
-    Route::get('/lmsClientsSysConfigAPI/{client_code}', [LmsClientsSysConfigApiController::class, 'getLmsClientsSysConfig']);
+    Route::get('/lmsClientsSysConfigApi/{client_code}', [LmsClientsSysConfigApiController::class, 'getLmsClientsSysConfigApi']);
+
+    Route::get('/getAppTenantsApi/{app_name}', [GetAppTenantApiController::class, 'getAppTenantsApi']);
 });
 
 
@@ -80,4 +83,4 @@ Route::get('/toolsMasterSettings', [ToolsMasterApiController::class, 'index']);
 
 Route::get('/callReviewSettings', [CallReviewSettingApiController::class, 'index']);
 
-Route::post('/getToolsAccessTokenApi', [getToolsAccessTokenApi::class, 'getToolsAccessTokenApi']);
+Route::post('/getToolsAccessTokenApi', [GetToolsAccessTokenApiController::class, 'getToolsAccessTokenApi']);

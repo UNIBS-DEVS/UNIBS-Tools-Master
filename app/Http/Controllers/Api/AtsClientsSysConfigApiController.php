@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\AtsClientMaster;
+use App\Models\AtsClientsMaster;
 
 class AtsClientsSysConfigApiController extends Controller
 {
-    public function getAtsClientsSysConfig(string $client_code)
+    public function getAtsClientsSysConfigApi(string $client_code)
     {
-        $client = AtsClientMaster::where('client_code', $client_code)
+        $client = AtsClientsMaster::where('client_code', $client_code)
             ->where('status', 'active')
             ->with('atsClientsSysConfig')
             ->first();

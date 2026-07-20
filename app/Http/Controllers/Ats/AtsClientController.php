@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Ats;
 
 use App\Http\Controllers\Controller;
-use App\Models\AtsClientMaster;
+use App\Models\AtsClientsMaster;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,7 +12,7 @@ class AtsClientController extends Controller
     // LIST
     public function index()
     {
-        $clients = AtsClientMaster::latest()->paginate(10);
+        $clients = AtsClientsMaster::latest()->paginate(10);
 
         return view('ats.clients.index', compact('clients'));
     }
@@ -34,7 +34,7 @@ class AtsClientController extends Controller
             'client_spoc_mobile' => 'nullable|digits_between:10,15',
         ]);
 
-        AtsClientMaster::create($request->all());
+        AtsClientsMaster::create($request->all());
 
         return redirect()
             ->route('ats.clients.index')
@@ -42,19 +42,19 @@ class AtsClientController extends Controller
     }
 
     // SHOW
-    public function show(AtsClientMaster $client)
+    public function show(AtsClientsMaster $client)
     {
         return view('ats.clients.show', compact('client'));
     }
 
     // EDIT
-    public function edit(AtsClientMaster $client)
+    public function edit(AtsClientsMaster $client)
     {
         return view('ats.clients.edit', compact('client'));
     }
 
     // UPDATE
-    public function update(Request $request, AtsClientMaster $client)
+    public function update(Request $request, AtsClientsMaster $client)
     {
         $request->validate([
             'client_code' => [
@@ -76,7 +76,7 @@ class AtsClientController extends Controller
     }
 
     // DELETE
-    public function destroy(AtsClientMaster $client)
+    public function destroy(AtsClientsMaster $client)
     {
         $client->delete();
 

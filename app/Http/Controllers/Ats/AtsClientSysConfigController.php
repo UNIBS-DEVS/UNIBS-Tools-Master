@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Ats;
 
 use App\Http\Controllers\Controller;
-use App\Models\AtsClientMaster;
+use App\Models\AtsClientsMaster;
 use App\Models\AtsClientsSysConfig;
 use Illuminate\Http\Request;
 
 class AtsClientSysConfigController extends Controller
 {
     // CREATE FORM
-    public function create(AtsClientMaster $client)
+    public function create(AtsClientsMaster $client)
     {
         $existing = AtsClientsSysConfig::where('client_id', $client->id)->first();
 
@@ -28,7 +28,7 @@ class AtsClientSysConfigController extends Controller
     }
 
     // STORE
-    public function store(Request $request, AtsClientMaster $client)
+    public function store(Request $request, AtsClientsMaster $client)
     {
         $validated = $request->validate([
             'support_user' => 'nullable|string|max:255',
@@ -49,7 +49,7 @@ class AtsClientSysConfigController extends Controller
             'graph_client_secret_id' => 'nullable|string|max:255',
             'graph_client_secret_value' => 'nullable|string|max:255',
             'graph_redirect_url' => 'nullable|string|max:255',
-            'graph_client_expiry_date' => 'nullable|date', 
+            'graph_client_expiry_date' => 'nullable|date',
 
             'resume_parse_email' => 'nullable|email',
             'resume_parsing_time' => 'nullable|string',
@@ -81,7 +81,7 @@ class AtsClientSysConfigController extends Controller
     }
 
     // EDIT
-    public function edit(AtsClientMaster $client)
+    public function edit(AtsClientsMaster $client)
     {
         $config = AtsClientsSysConfig::where('client_id', $client->id)->firstOrFail();
 
@@ -93,7 +93,7 @@ class AtsClientSysConfigController extends Controller
     }
 
     // UPDATE
-    public function update(Request $request, AtsClientMaster $client)
+    public function update(Request $request, AtsClientsMaster $client)
     {
         $config = AtsClientsSysConfig::where('client_id', $client->id)->firstOrFail();
 
@@ -117,7 +117,7 @@ class AtsClientSysConfigController extends Controller
             'graph_client_secret_value' => 'nullable|string|max:255',
             'graph_redirect_url' => 'nullable|string|max:255',
             'graph_client_expiry_date' => 'nullable|date',
- 
+
             'resume_parse_email' => 'nullable|email',
             'resume_parsing_time' => 'nullable|string',
 
@@ -154,7 +154,7 @@ class AtsClientSysConfigController extends Controller
     }
 
     // DELETE
-    public function destroy(AtsClientMaster $client)
+    public function destroy(AtsClientsMaster $client)
     {
         $config = AtsClientsSysConfig::where('client_id', $client->id)->first();
 

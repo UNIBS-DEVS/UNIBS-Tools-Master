@@ -11,7 +11,6 @@ class GetToolsAccessTokenApiController extends Controller
 {
     public function getToolsAccessTokenApi(Request $request)
     {
-
         $test = $request->validate([
             'email'       => 'required|email',
             'password'    => 'required|string',

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Lms;
 
 use App\Http\Controllers\Controller;
-use App\Models\LmsClientMaster;
+use App\Models\LmsClientsMaster;
 use App\Models\LmsClientsSysConfig;
 use Illuminate\Http\Request;
 
 class LmsClientSysConfigController extends Controller
 {
     // CREATE FORM
-    public function create(LmsClientMaster $client)
+    public function create(LmsClientsMaster $client)
     {
         $existing = LmsClientsSysConfig::where('client_id', $client->id)->first();
 
@@ -28,7 +28,7 @@ class LmsClientSysConfigController extends Controller
     }
 
     // STORE
-    public function store(Request $request, LmsClientMaster $client)
+    public function store(Request $request, LmsClientsMaster $client)
     {
         $validated = $request->validate([
             'support_user' => 'nullable|string|max:255',
@@ -66,7 +66,7 @@ class LmsClientSysConfigController extends Controller
     }
 
     // EDIT
-    public function edit(LmsClientMaster $client)
+    public function edit(LmsClientsMaster $client)
     {
         $config = LmsClientsSysConfig::where('client_id', $client->id)->firstOrFail();
 
@@ -78,7 +78,7 @@ class LmsClientSysConfigController extends Controller
     }
 
     // UPDATE
-    public function update(Request $request, LmsClientMaster $client)
+    public function update(Request $request, LmsClientsMaster $client)
     {
         $config = LmsClientsSysConfig::where('client_id', $client->id)->firstOrFail();
 
@@ -125,7 +125,7 @@ class LmsClientSysConfigController extends Controller
     }
 
     // DELETE
-    public function destroy(LmsClientMaster $client)
+    public function destroy(LmsClientsMaster $client)
     {
         $config = LmsClientsSysConfig::where('client_id', $client->id)->first();
 

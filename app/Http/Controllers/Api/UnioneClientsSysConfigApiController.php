@@ -17,13 +17,21 @@ class UnioneClientsSysConfigApiController extends Controller
         if (!$client || !$client->unioneClientsSysConfig) {
             return response()->json([
                 'status' => false,
-                'data' => (object)[]
+                'data' => (object)[],
             ], 404);
         }
 
+        $systemConfig = $client->unioneClientsSysConfig;
+
+        // Remove the loaded relationship from client_master
+        $client->unsetRelation('unioneClientsSysConfig');
+
         return response()->json([
             'status' => true,
-            'data' => $client->unioneClientsSysConfig
+            'data' => [
+                'client_master' => $client,
+                'system_config' => $systemConfig,
+            ],
         ], 200);
     }
 }

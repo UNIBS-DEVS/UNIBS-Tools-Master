@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Lms;
 
 use App\Http\Controllers\Controller;
-use App\Models\LmsClientMaster;
+use App\Models\LmsClientsMaster;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,7 +12,7 @@ class LmsClientController extends Controller
     // LIST
     public function index()
     {
-        $clients = LmsClientMaster::latest()->paginate(10);
+        $clients = LmsClientsMaster::latest()->paginate(10);
 
         return view('lms.clients.index', compact('clients'));
     }
@@ -34,7 +34,7 @@ class LmsClientController extends Controller
             'client_spoc_mobile' => 'nullable|digits_between:10,15',
         ]);
 
-        LmsClientMaster::create($request->all());
+        LmsClientsMaster::create($request->all());
 
         return redirect()
             ->route('lms.clients.index')
@@ -42,19 +42,19 @@ class LmsClientController extends Controller
     }
 
     // SHOW
-    public function show(LmsClientMaster $client)
+    public function show(LmsClientsMaster $client)
     {
         return view('lms.clients.show', compact('client'));
     }
 
     // EDIT
-    public function edit(LmsClientMaster $client)
+    public function edit(LmsClientsMaster $client)
     {
         return view('lms.clients.edit', compact('client'));
     }
 
     // UPDATE
-    public function update(Request $request, LmsClientMaster $client)
+    public function update(Request $request, LmsClientsMaster $client)
     {
         $request->validate([
             'client_code' => [
@@ -76,7 +76,7 @@ class LmsClientController extends Controller
     }
 
     // DELETE
-    public function destroy(LmsClientMaster $client)
+    public function destroy(LmsClientsMaster $client)
     {
         $client->delete();
 

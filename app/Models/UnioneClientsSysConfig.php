@@ -55,7 +55,7 @@ class UnioneClientsSysConfig extends Model
     /**
      * Relationship with Client (if you have clients table)
      */
-    public function unioneClientMaster()
+    public function unioneClientsMaster()
     {
         return $this->belongsTo(UnioneClientsMaster::class, 'client_id');
     }

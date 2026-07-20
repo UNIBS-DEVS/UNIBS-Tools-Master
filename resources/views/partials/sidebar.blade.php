@@ -129,7 +129,6 @@
         </div>
     @endif
 
-
     {{-- Tools --}}
     @if (auth()->user()->hasRole(['admin']))
         {{-- Tools --}}
@@ -151,6 +150,25 @@
                 <span>Mobile Application</span>
             </a>
 
+
+        </div>
+    @endif
+
+    {{-- db inspector --}}
+    @if (auth()->user()->hasRole(['admin', 'db_inspector']))
+        {{-- --}}
+        <a data-bs-toggle="collapse" href="#dbInspectorMenu">
+            <i class="fa fa-database"></i>
+            <span class="flex-grow-1">DB Inspector</span>
+            <i class="fa fa-chevron-down ms-auto small"></i>
+        </a>
+
+        <div class="collapse ps-4" id="dbInspectorMenu">
+
+            <a href="{{ route('db-settings') }}" class="sidebar-submenu">
+                <i class="fa fa-gear"></i>
+                <span>DB inspector</span>
+            </a>
 
         </div>
     @endif

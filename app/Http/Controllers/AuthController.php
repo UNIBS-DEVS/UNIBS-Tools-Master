@@ -15,42 +15,43 @@ class AuthController extends Controller
     // ✅ LOGIN PAGE
     public function login()
     {
-        $config = ToolsMaster::first(); 
+        $config = ToolsMaster::first();
 
-        return view('auth.login', [
-            'authType' => $config->login_auth_type ?? 'basic',
-        ]);
+        return view('auth.login', ['authType' => $config->login_auth_type ?? 'basic',]);
     }
 
     // ✅ BASIC LOGIN
     public function authenticate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'    => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
         if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            return back()->withErrors($validator)->withInput();
         }
 
         $remember = $request->boolean('remember');
 
-        if (Auth::attempt($request->only('email', 'password'), $remember)) {
-
-            $request->session()->regenerate();
-
-            // ✅ store login type
-            session(['login_type' => 'basic']);
-
-            return redirect()->route('dashboard.index');
+        if (!Auth::attempt($request->only('email', 'password'), $remember)) {
+            return back()->with('error', 'Invalid email or password');
         }
 
-        return back()->with('error', 'Invalid email or password');
-    }
+        $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        // Allow only API users
+        if ($user->hasRole(['api user'])) {
+            Auth::logout();
+            return back()->with('error', 'You are not allowed to login.');
+        }
+
+        session(['login_auth_type' => 'basic']);
+
+        return redirect()->route('dashboard.index');
+    }
 
     // ✅ REDIRECT TO MICROSOFT
     public function redirectToMicrosoft()
@@ -129,8 +130,8 @@ class AuthController extends Controller
         $loginType = $config->login_auth_type ?? 'basic';
 
         // ✅ store login type
-        session(['login_type' => $loginType]);
- 
+        session(['login_auth_type' => $loginType]);
+
 
         $token = $user->createToken('api-token')->plainTextToken;
 
@@ -140,7 +141,7 @@ class AuthController extends Controller
     // ✅ LOGOUT (FIXED)
     public function logout(Request $request)
     {
-        $loginType = session('login_type'); // 👈 important
+        $loginType = session('login_auth_type'); // 👈 important
 
         Auth::logout();
 

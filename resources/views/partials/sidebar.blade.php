@@ -145,6 +145,11 @@
                 <span>Tool Master</span>
             </a>
 
+            <a href="" class="sidebar-submenu">
+                <i class="fa fa-gear"></i>
+                <span>Applications</span>
+            </a>
+
             <a href="{{ route('upload-mobile-app.index') }}" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>Mobile Application</span>
@@ -165,7 +170,7 @@
 
         <div class="collapse ps-4" id="dbInspectorMenu">
 
-            <a href="{{ route('db-settings') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>DB inspector</span>
             </a>

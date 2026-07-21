@@ -7,7 +7,7 @@ use App\Models\LmsClientsMaster;
 use App\Models\LmsClientsSysConfig;
 use Illuminate\Http\Request;
 
-class LmsClientSysConfigController extends Controller
+class LmsClientsSysConfigController extends Controller
 {
     // CREATE FORM
     public function create(LmsClientsMaster $client)

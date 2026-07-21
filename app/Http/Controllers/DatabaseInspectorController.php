@@ -5,21 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\DatabaseInspectorService;
 
-class DatabaseInspectorController extends Controller{
+class DatabaseInspectorController extends Controller
+{
     public function showSettings()
     {
-        if (!auth()->user()->hasRole('api user')) {
-            abort(403, 'Unauthorized. Must have "api user" role to access DB Inspector settings.');
-        }
+        // if (!auth()->user()->hasRole('api user')) {
+        //     abort(403, 'Unauthorized. Must have "api user" role to access DB Inspector settings.');
+        // }
 
         return view('view.settings');
     }
 
     public function getClientsApiProxy($appName)
     {
-        if (!auth()->user()->hasRole('api user')) {
-            return response()->json(['status' => false, 'message' => 'Unauthorized.'], 403);
-        }
+        // if (!auth()->user()->hasRole('api user')) {
+        //     return response()->json(['status' => false, 'message' => 'Unauthorized.'], 403);
+        // }
 
         $api = new \App\Http\Controllers\Api\GetAppTenantApiController();
         return $api->getAppTenantsApi($appName);
@@ -27,9 +28,9 @@ class DatabaseInspectorController extends Controller{
 
     public function connect(Request $request)
     {
-        if (!auth()->user()->hasRole('api user')) {
-            abort(403, 'Unauthorized. Must have "api user" role to establish a connection.');
-        }
+        // if (!auth()->user()->hasRole('api user')) {
+        //     abort(403, 'Unauthorized. Must have "api user" role to establish a connection.');
+        // }
 
         // Immediately forget any existing connection credentials
         $request->session()->forget('db_credentials');
@@ -51,13 +52,13 @@ class DatabaseInspectorController extends Controller{
         try {
             if ($appName === 'ats') {
                 $api = new \App\Http\Controllers\Api\AtsClientsSysConfigApiController();
-                $response = $api->getAtsSysConfig($clientCode);
+                $response = $api->getAtsClientsSysConfigApi($clientCode);
             } elseif ($appName === 'lms') {
                 $api = new \App\Http\Controllers\Api\LmsClientsSysConfigApiController();
-                $response = $api->getLmsSysConfig($clientCode);
+                $response = $api->getLmsClientsSysConfigApi($clientCode);
             } elseif ($appName === 'unione') {
                 $api = new \App\Http\Controllers\Api\UnioneClientsSysConfigApiController();
-                $response = $api->getUnioneSysConfig($clientCode);
+                $response = $api->getUnioneClientsSysConfigApi($clientCode);
             } else {
                 throw new \Exception("Invalid application selected.");
             }
@@ -79,7 +80,6 @@ class DatabaseInspectorController extends Controller{
             $username = $config['db_username'] ?? 'root';
             $password = $config['db_password'] ?? '';
             $profileDbName = trim($config['db_name'] ?? '');
-
         } catch (\Exception $e) {
             return back()->withInput()->withErrors(['connection' => $e->getMessage()]);
         }

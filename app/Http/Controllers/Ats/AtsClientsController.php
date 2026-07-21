@@ -1,65 +1,65 @@
 <?php
 
-namespace App\Http\Controllers\Lms;
+namespace App\Http\Controllers\Ats;
 
 use App\Http\Controllers\Controller;
-use App\Models\LmsClientsMaster;
+use App\Models\AtsClientsMaster;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class LmsClientController extends Controller
+class AtsClientsController extends Controller
 {
     // LIST
     public function index()
     {
-        $clients = LmsClientsMaster::latest()->paginate(10);
+        $clients = AtsClientsMaster::latest()->paginate(10);
 
-        return view('lms.clients.index', compact('clients'));
+        return view('ats.clients.index', compact('clients'));
     }
 
     // CREATE FORM
     public function create()
     {
-        return view('lms.clients.create');
+        return view('ats.clients.create');
     }
 
     // STORE
     public function store(Request $request)
     {
         $request->validate([
-            'client_code' => 'required|unique:lms_clients_master,client_code',
+            'client_code' => 'required|unique:ats_clients_master,client_code',
             'client_name' => 'required|string|max:150',
             'status' => 'required|in:active,inactive',
             'client_spoc_email' => 'nullable|email',
             'client_spoc_mobile' => 'nullable|digits_between:10,15',
         ]);
 
-        LmsClientsMaster::create($request->all());
+        AtsClientsMaster::create($request->all());
 
         return redirect()
-            ->route('lms.clients.index')
+            ->route('ats.clients.index')
             ->with('success', 'Client created successfully.');
     }
 
     // SHOW
-    public function show(LmsClientsMaster $client)
+    public function show(AtsClientsMaster $client)
     {
-        return view('lms.clients.show', compact('client'));
+        return view('ats.clients.show', compact('client'));
     }
 
     // EDIT
-    public function edit(LmsClientsMaster $client)
+    public function edit(AtsClientsMaster $client)
     {
-        return view('lms.clients.edit', compact('client'));
+        return view('ats.clients.edit', compact('client'));
     }
 
     // UPDATE
-    public function update(Request $request, LmsClientsMaster $client)
+    public function update(Request $request, AtsClientsMaster $client)
     {
         $request->validate([
             'client_code' => [
                 'required',
-                Rule::unique('lms_clients_master', 'client_code')
+                Rule::unique('ats_clients_master', 'client_code')
                     ->ignore($client->id),
             ],
             'client_name' => 'required|string|max:150',
@@ -71,17 +71,17 @@ class LmsClientController extends Controller
         $client->update($request->all());
 
         return redirect()
-            ->route('lms.clients.index')
+            ->route('ats.clients.index')
             ->with('success', 'Client updated successfully.');
     }
 
     // DELETE
-    public function destroy(LmsClientsMaster $client)
+    public function destroy(AtsClientsMaster $client)
     {
         $client->delete();
 
         return redirect()
-            ->route('lms.clients.index')
+            ->route('ats.clients.index')
             ->with('success', 'Client deleted successfully.');
     }
 }

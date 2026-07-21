@@ -63,27 +63,4 @@ class User extends Authenticatable
 
         return count(array_intersect($roles, $userRoles)) > 0;
     }
-
-    public function attendances()
-    {
-        return $this->hasMany(Attendance::class);
-    }
-
-
-    // Attendance Location Relationships
-    public function attendanceLocations()
-    {
-        return $this->belongsToMany(
-            AttendanceLocation::class,
-            'user_attendance_locations'
-        )->withPivot([
-            'status',
-            'created_by',
-            'updated_by'
-        ])->withTimestamps();
-    }
-    public function userAttendanceLocations()
-    {
-        return $this->hasMany(UserAttendanceLocation::class);
-    }
 }

@@ -7,7 +7,7 @@ use App\Models\AtsClientsMaster;
 use App\Models\AtsClientsSysConfig;
 use Illuminate\Http\Request;
 
-class AtsClientSysConfigController extends Controller
+class AtsClientsSysConfigController extends Controller
 {
     // CREATE FORM
     public function create(AtsClientsMaster $client)

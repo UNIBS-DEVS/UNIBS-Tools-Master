@@ -7,7 +7,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatabaseInspectorController;
 use App\Http\Controllers\Lms\LmsClientsController;
 use App\Http\Controllers\Lms\LmsClientsSysConfigController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SystemSettingController;
 use App\Http\Controllers\ToolsMasterController;
+use App\Http\Controllers\Unione\UnioneClientsController;
+use App\Http\Controllers\Unione\UnioneClientsSysConfigController;
 use App\Http\Controllers\UploadMobileAppController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\DatabaseConnectionMiddleware;
@@ -132,6 +136,37 @@ Route::middleware('auth')->group(function () {
                 [AtsClientsSysConfigController::class, 'destroy']
             )->name('clientsSysConfigs.destroy');
         });
+
+        /* ---------- UNIONE Clients ---------- */
+        Route::prefix('unione')->name('unione.')->group(function () {
+
+            Route::resource('clients', UnioneClientsController::class);
+
+            Route::get(
+                'clients/{client}/sys-config/create',
+                [UnioneClientsSysConfigController::class, 'create']
+            )->name('clientsSysConfigs.create');
+
+            Route::post(
+                'clients/{client}/sys-config',
+                [UnioneClientsSysConfigController::class, 'store']
+            )->name('clientsSysConfigs.store');
+
+            Route::get(
+                'clients/{client}/sys-config/edit',
+                [UnioneClientsSysConfigController::class, 'edit']
+            )->name('clientsSysConfigs.edit');
+
+            Route::put(
+                'clients/{client}/sys-config',
+                [UnioneClientsSysConfigController::class, 'update']
+            )->name('clientsSysConfigs.update');
+
+            Route::delete(
+                'clients/{client}/sys-config',
+                [UnioneClientsSysConfigController::class, 'destroy']
+            )->name('clientsSysConfigs.destroy');
+        });
     });
 
 
@@ -149,6 +184,14 @@ Route::middleware('auth')->group(function () {
 
         Route::put('/tools-master', [ToolsMasterController::class, 'update'])
             ->name('tools-master.update');
+
+        // Settings 
+        Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
+
+            Route::get('/', [SettingsController::class, 'index'])->name('index');
+
+            Route::resource('system-settings', SystemSettingController::class)->except(['create', 'edit', 'show']);
+        });
     });
 
     // db inspector

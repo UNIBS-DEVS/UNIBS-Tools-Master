@@ -31,37 +31,37 @@
 
         <div class="collapse ps-4" id="accountsMenu">
 
-            <a href="{{ route('settings.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>Invoices</span>
             </a>
 
-            <a href="{{ route('reviews.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-phone"></i>
                 <span>Balance Sheet</span>
             </a>
 
-            <a href="{{ route('settings.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>Salary</span>
             </a>
 
-            <a href="{{ route('settings.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>GST</span>
             </a>
 
-            <a href="{{ route('settings.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>TDS</span>
             </a>
 
-            <a href="{{ route('settings.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>EPF</span>
             </a>
 
-            <a href="{{ route('settings.index') }}" class="sidebar-submenu">
+            <a href="" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>ESI</span>
             </a>
@@ -120,7 +120,7 @@
             </a>
 
             <div class="collapse ps-4" id="unioneMenu">
-                <a href="" class="sidebar-submenu">
+                <a href="{{ route('unione.clients.index') }}" class="sidebar-submenu">
                     <i class="fa fa-building"></i>
                     <span>Clients</span>
                 </a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Ats\AtsClientsController;
 use App\Http\Controllers\Ats\AtsClientsSysConfigController;
 use App\Http\Controllers\AuthController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatabaseInspectorController;
 use App\Http\Controllers\Lms\LmsClientsController;
 use App\Http\Controllers\Lms\LmsClientsSysConfigController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SystemSettingController;
 use App\Http\Controllers\ToolsMasterController;
@@ -184,6 +186,10 @@ Route::middleware('auth')->group(function () {
 
         Route::put('/tools-master', [ToolsMasterController::class, 'update'])
             ->name('tools-master.update');
+
+
+        Route::resource('applications', ApplicationController::class);
+        Route::resource('modules', ModuleController::class);
 
         // Settings 
         Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {

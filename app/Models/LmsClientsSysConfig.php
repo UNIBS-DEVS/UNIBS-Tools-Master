@@ -37,12 +37,16 @@ class LmsClientsSysConfig extends Model
 
         'login_auth_type',
         'email_auth_type',
+
+        'modules'
     ];
 
     protected $casts = [
         'login_auth_type' => 'string',
         'email_auth_type' => 'string',
         'resume_parsing_time' => 'array', // ✅ important
+
+        'modules' => 'array',
     ];
 
     /**
@@ -50,6 +54,6 @@ class LmsClientsSysConfig extends Model
      */
     public function lmsClientMaster()
     {
-        return $this->belongsTo(LmsClientMaster::class, 'client_id');
+        return $this->belongsTo(LmsClientsMaster::class, 'client_id');
     }
 }

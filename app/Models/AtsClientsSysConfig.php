@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\AtsClientMaster;
+use App\Models\AtsClientsMaster;
 use Illuminate\Database\Eloquent\Model;
 
 class AtsClientsSysConfig extends Model
@@ -32,17 +32,18 @@ class AtsClientsSysConfig extends Model
         'graph_redirect_url',
         'graph_client_expiry_date',
 
-        'resume_parse_email',
-        'resume_parsing_time',
-
         'login_auth_type',
         'email_auth_type',
+
+        'modules'
     ];
 
     protected $casts = [
         'login_auth_type' => 'string',
         'email_auth_type' => 'string',
         'resume_parsing_time' => 'array', // ✅ important
+
+        'modules' => 'array',
     ];
 
     /**
@@ -50,6 +51,6 @@ class AtsClientsSysConfig extends Model
      */
     public function atsClientMaster()
     {
-        return $this->belongsTo(AtsClientMaster::class, 'client_id');
+        return $this->belongsTo(AtsClientsMaster::class, 'client_id');
     }
 }

@@ -84,20 +84,6 @@
 
         <div class="collapse ps-4" id="toolsMenu">
 
-            {{-- LMS --}}
-            <a data-bs-toggle="collapse" href="#lmsMenu">
-                <i class="fa fa-book-open"></i>
-                <span class="flex-grow-1">LMS</span>
-                <i class="fa fa-chevron-down ms-auto small"></i>
-            </a>
-
-            <div class="collapse ps-4" id="lmsMenu">
-                <a href="{{ route('lms.clients.index') }}" class="sidebar-submenu">
-                    <i class="fa fa-building"></i>
-                    <span>Clients</span>
-                </a>
-            </div>
-
             {{-- ATS --}}
             <a data-bs-toggle="collapse" href="#atsMenu">
                 <i class="fa fa-user-tie"></i>
@@ -107,6 +93,20 @@
 
             <div class="collapse ps-4" id="atsMenu">
                 <a href="{{ route('ats.clients.index') }}" class="sidebar-submenu">
+                    <i class="fa fa-building"></i>
+                    <span>Clients</span>
+                </a>
+            </div>
+
+            {{-- LMS --}}
+            <a data-bs-toggle="collapse" href="#lmsMenu">
+                <i class="fa fa-book-open"></i>
+                <span class="flex-grow-1">LMS</span>
+                <i class="fa fa-chevron-down ms-auto small"></i>
+            </a>
+
+            <div class="collapse ps-4" id="lmsMenu">
+                <a href="{{ route('lms.clients.index') }}" class="sidebar-submenu">
                     <i class="fa fa-building"></i>
                     <span>Clients</span>
                 </a>
@@ -145,11 +145,11 @@
                 <span>Tool Master</span>
             </a>
 
-            <a href="" class="sidebar-submenu">
+            <a href="{{ route('applications.index') }}"
+                class="sidebar-submenu {{ request()->routeIs('applications.*') ? 'active' : '' }}">
                 <i class="fa fa-gear"></i>
                 <span>Applications</span>
             </a>
-
             <a href="{{ route('upload-mobile-app.index') }}" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>Mobile Application</span>
@@ -170,7 +170,7 @@
 
         <div class="collapse ps-4" id="dbInspectorMenu">
 
-            <a href="" class="sidebar-submenu">
+            <a href="{{ route('db-settings') }}" class="sidebar-submenu">
                 <i class="fa fa-gear"></i>
                 <span>DB inspector</span>
             </a>

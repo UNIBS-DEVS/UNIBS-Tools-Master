@@ -18,8 +18,10 @@
                     <div class="card-body p-4 bg-white">
                         @if ($errors->any())
                             <div class="alert alert-danger mb-4">
-                                <h6 class="fw-bold mb-1"><i class="fa fa-triangle-exclamation me-2"></i>Connection Failed</h6>
-                                <p class="small mb-0 font-monospace" style="word-break: break-all;">{{ $errors->first() }}</p>
+                                <h6 class="fw-bold mb-1"><i class="fa fa-triangle-exclamation me-2"></i>Connection Failed
+                                </h6>
+                                <p class="small mb-0 font-monospace" style="word-break: break-all;">{{ $errors->first() }}
+                                </p>
                             </div>
                         @endif
 
@@ -27,17 +29,21 @@
                             @csrf
 
                             <div class="mb-4">
-                                <label for="app_name" class="form-label small fw-semibold text-muted text-uppercase tracking-wider">Application</label>
+                                <label for="app_name"
+                                    class="form-label small fw-semibold text-muted text-uppercase tracking-wider">Application</label>
                                 <select id="app_name" name="app_name" class="form-select" required>
                                     <option value="">-- Select Application --</option>
                                     <option value="ats" {{ old('app_name') == 'ats' ? 'selected' : '' }}>ATS</option>
                                     <option value="lms" {{ old('app_name') == 'lms' ? 'selected' : '' }}>LMS</option>
-                                    <option value="unione" {{ old('app_name') == 'unione' ? 'selected' : '' }}>Unione</option>
+                                    <option value="unione" {{ old('app_name') == 'unione' ? 'selected' : '' }}>Unione
+                                    </option>
                                 </select>
                             </div>
 
                             <div class="mb-4">
-                                <label for="profile_id" class="form-label small fw-semibold text-muted text-uppercase tracking-wider">Quick Connect Profile</label>
+                                <label for="profile_id"
+                                    class="form-label small fw-semibold text-muted text-uppercase tracking-wider">Quick
+                                    Connect Profile</label>
                                 <select id="profile_id" name="profile_id" class="form-select" required disabled>
                                     <option value="">-- Select a Database Profile --</option>
                                 </select>
@@ -56,7 +62,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const appSelect = document.getElementById('app_name');
             const profileSelect = document.getElementById('profile_id');
             const submitBtn = document.getElementById('submit-btn');
@@ -83,13 +89,15 @@
                         profileSelect.innerHTML = '<option value="">-- Select a Database Profile --</option>';
                         if (res.status && Array.isArray(res.data)) {
                             if (res.data.length === 0) {
-                                profileSelect.innerHTML = '<option value="">No connection profiles found</option>';
+                                profileSelect.innerHTML =
+                                    '<option value="">No connection profiles found</option>';
                                 return;
                             }
                             res.data.forEach(client => {
                                 const option = document.createElement('option');
                                 option.value = client.client_code;
-                                option.textContent = (client.client_name || client.client_code) + ' (' + appName.toUpperCase() + ')';
+                                option.textContent = (client.client_name || client.client_code) + ' (' +
+                                    appName.toUpperCase() + ')';
                                 if (selectedProfile && selectedProfile === client.client_code) {
                                     option.selected = true;
                                 }
@@ -106,25 +114,27 @@
                     });
             }
 
-            appSelect.addEventListener('change', function () {
+            appSelect.addEventListener('change', function() {
                 loadClients(this.value);
             });
 
-            profileSelect.addEventListener('change', function () {
+            profileSelect.addEventListener('change', function() {
                 if (profileSelect.value) {
                     submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Connecting...';
+                    submitBtn.innerHTML =
+                        '<span class="spinner-border spinner-border-sm me-2"></span>Connecting...';
                     form.submit();
                 }
             });
 
-            form.addEventListener('submit', function (e) {
+            form.addEventListener('submit', function(e) {
                 if (!profileSelect.value || !appSelect.value) {
                     e.preventDefault();
                     return;
                 }
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Connecting...';
+                submitBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-2"></span>Connecting...';
             });
 
             const oldApp = "{{ old('app_name') }}";

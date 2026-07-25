@@ -9,29 +9,17 @@ class DatabaseInspectorController extends Controller
 {
     public function showSettings()
     {
-        // if (!auth()->user()->hasRole('api user')) {
-        //     abort(403, 'Unauthorized. Must have "api user" role to access DB Inspector settings.');
-        // }
-
-        return view('view.settings');
+        return view('db_inspectors.settings');
     }
 
     public function getClientsApiProxy($appName)
     {
-        // if (!auth()->user()->hasRole('api user')) {
-        //     return response()->json(['status' => false, 'message' => 'Unauthorized.'], 403);
-        // }
-
         $api = new \App\Http\Controllers\Api\GetAppTenantApiController();
         return $api->getAppTenantsApi($appName);
     }
 
     public function connect(Request $request)
     {
-        // if (!auth()->user()->hasRole('api user')) {
-        //     abort(403, 'Unauthorized. Must have "api user" role to establish a connection.');
-        // }
-
         // Immediately forget any existing connection credentials
         $request->session()->forget('db_credentials');
 
@@ -231,7 +219,7 @@ class DatabaseInspectorController extends Controller
             ]);
         }
 
-        return view('view.DB', [
+        return view('db_inspectors.index', [
             'tables' => $tables,
             'selectedTable' => $selectedTable,
             'schema' => $schema,
